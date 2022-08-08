@@ -1,15 +1,34 @@
 "use strict";
-let greet;
-greet = () => {
-    console.log("sup homie!");
+const item = {
+    name: "tomate",
+    uid: 233998
 };
-const add = (a, b, c = 10) => {
-    console.log(c);
-    return a + b;
+const logDetails = (uid = '765') => {
+    console.log(`${item.name} has uid of ${uid}`);
 };
-console.log(add(4, 10));
-const subtract = (y, x) => {
-    return y - x;
+logDetails();
+const greet = (user) => {
+    console.log(`${user.name} says hello`);
 };
-let answer = subtract(10, 4).toString();
-console.log(answer);
+let calc;
+calc = (pOne, pTwo, result = "minus") => {
+    if (result === "minus") {
+        return pOne - pTwo;
+    }
+    else {
+        return pOne + pTwo;
+    }
+};
+let output = calc(3, 6, "minus");
+console.log(output);
+// 2nc case
+let logOutput;
+let ninja = {
+    name: "amaboh",
+    age: 30
+};
+const engineer = ninja;
+logOutput = (ninja) => {
+    console.log(`${ninja.name} ${ninja.age} years old`);
+};
+logOutput(engineer);
