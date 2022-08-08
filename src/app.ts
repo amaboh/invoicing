@@ -1,4 +1,20 @@
-import {Invoice} from './classes/Invoice.js'
+import {Invoice} from './classes/Invoice.js';
+import {Payments} from './classes/Payment.js';
+import {HasFormatter} from './interfaces/HasFormatter.js';
+
+let docOne: HasFormatter;
+let docTwo: HasFormatter;
+
+docOne = new Invoice("Shane", "web development", 500)
+docTwo = new Payments("Amaboh", "ui research", 400)
+
+let docs : HasFormatter[] =[]
+
+docs.push(docOne, docTwo);
+
+console.log(docs)
+
+
 
 //  const archor = document.querySelector('a')!;
 
@@ -60,17 +76,22 @@ invoices.forEach(inv =>{
 console.log(invOne, invTwo)
 
 
-const type = document.querySelector("#type") as HTMLInputElement;
+const type = document.querySelector("#type") as HTMLSelectElement;
 const tofrom = document.querySelector("#tofrom") as HTMLInputElement;
 const details = document.querySelector("#details") as HTMLInputElement;
-const amount = document.querySelector("#amount") as HTMLInputElement;
+const bill = document.querySelector("#amount") as HTMLInputElement;
+
+let docuInv: HasFormatter;
 
 form.addEventListener("submit", (e: Event)=>{
     e.preventDefault();
 
-    console.log(type.value,
-        tofrom.value,
-        details.value,
-        amount.valueAsNumber)
+    if(type.value === "invoice"){
+        docuInv = new Invoice(tofrom.value, details.value, bill.valueAsNumber)
+    }else{
+        docuInv = new Payments(tofrom.value, details.value, bill.valueAsNumber)
+    }
+
+    console.log(docuInv)
 })
   
