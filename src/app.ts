@@ -1,3 +1,5 @@
+import {Invoice} from './classes/Invoice.js'
+
 //  const archor = document.querySelector('a')!;
 
 //  if(archor){
@@ -9,20 +11,34 @@
 const form = document.querySelector('.new-item-form') as HTMLFormElement;
 // console.log(form.children)
 
-class Invoice {
-   
 
-    constructor( readonly client: string,
-        private details: string,
-        public amount: number){
-   
-    }
+// interfaces
 
-    format(){
-        return `${this.client} owes ${this.amount} for ${this.details}`
-    }
+interface isPerson{
+    name: string;
+    age: number;
+    speak(language: string): void;
+    spend(money: number): number;
 }
 
+
+const me: isPerson ={
+    name: "John",
+    age: 32,
+    speak(text: string): void{
+        console.log("I speak", text)
+    },
+    spend(amount: number): number{
+        console.log('he spent', amount)
+        return amount;
+    }
+};
+
+const greetPerson = (person: isPerson)=>{
+    console.log('ola', person.speak("fr"))
+}
+
+greetPerson(me)
 
 let invOne = new Invoice("Besong", "research on market", 200)
 let invTwo = new Invoice("Shane", "user reseach on ui & ux", 500)

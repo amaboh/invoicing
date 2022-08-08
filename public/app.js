@@ -1,21 +1,25 @@
-"use strict";
+import { Invoice } from './classes/Invoice.js';
 //  const archor = document.querySelector('a')!;
 //  if(archor){
 //     console.log(archor.href)
 //  }
 // console.log(archor.href)
 const form = document.querySelector('.new-item-form');
-// console.log(form.children)
-class Invoice {
-    constructor(client, details, amount) {
-        this.client = client;
-        this.details = details;
-        this.amount = amount;
+const me = {
+    name: "John",
+    age: 32,
+    speak(text) {
+        console.log("I speak", text);
+    },
+    spend(amount) {
+        console.log('he spent', amount);
+        return amount;
     }
-    format() {
-        return `${this.client} owes ${this.amount} for ${this.details}`;
-    }
-}
+};
+const greetPerson = (person) => {
+    console.log('ola', person.speak("fr"));
+};
+greetPerson(me);
 let invOne = new Invoice("Besong", "research on market", 200);
 let invTwo = new Invoice("Shane", "user reseach on ui & ux", 500);
 console.log(invOne.format());
