@@ -1,4 +1,5 @@
 import { Invoice } from './classes/Invoice.js';
+import { ListTemplate } from './classes/ListTemplate.js';
 import { Payments } from './classes/Payment.js';
 let docOne;
 let docTwo;
@@ -44,14 +45,37 @@ const type = document.querySelector("#type");
 const tofrom = document.querySelector("#tofrom");
 const details = document.querySelector("#details");
 const bill = document.querySelector("#amount");
+// list template instance 
+const ul = document.querySelector('ul');
+const list = new ListTemplate(ul);
 let docuInv;
 form.addEventListener("submit", (e) => {
     e.preventDefault();
+    let value;
+    value = [tofrom.value, details.value, bill.valueAsNumber];
     if (type.value === "invoice") {
-        docuInv = new Invoice(tofrom.value, details.value, bill.valueAsNumber);
+        docuInv = new Invoice(...value);
     }
     else {
-        docuInv = new Payments(tofrom.value, details.value, bill.valueAsNumber);
+        docuInv = new Payments(...value);
     }
-    console.log(docuInv);
+    list.render(docuInv, type.value, 'end');
+    form.reset();
 });
+const addUID = (obj) => {
+    let UID = Math.floor(Math.random() * 100);
+    return Object.assign(Object.assign({}, obj), { UID });
+};
+const docBlu = addUID({ name: "amaboh", age: 30 });
+const docRed = addUID({});
+console.log(docBlu);
+const vehicle = {
+    name: "Tesla",
+    year: 2005,
+    model: { suv: "Y", sedan: "X" }
+};
+const planet = {
+    name: "Benx",
+    year: 1896,
+    model: ["G wagon", "S class"]
+};

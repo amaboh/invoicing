@@ -1,4 +1,6 @@
+import { model } from 'mongoose';
 import {Invoice} from './classes/Invoice.js';
+import { ListTemplate } from './classes/ListTemplate.js';
 import {Payments} from './classes/Payment.js';
 import {HasFormatter} from './interfaces/HasFormatter.js';
 
@@ -81,17 +83,54 @@ const tofrom = document.querySelector("#tofrom") as HTMLInputElement;
 const details = document.querySelector("#details") as HTMLInputElement;
 const bill = document.querySelector("#amount") as HTMLInputElement;
 
-let docuInv: HasFormatter;
+// list template instance 
+const ul = document.querySelector('ul')!;
+const list = new ListTemplate(ul);
 
+
+let docuInv: HasFormatter;
 form.addEventListener("submit", (e: Event)=>{
     e.preventDefault();
 
+    let value: [string, string, number]
+    value = [tofrom.value, details.value, bill.valueAsNumber]
+
     if(type.value === "invoice"){
-        docuInv = new Invoice(tofrom.value, details.value, bill.valueAsNumber)
+        docuInv = new Invoice(...value)
     }else{
-        docuInv = new Payments(tofrom.value, details.value, bill.valueAsNumber)
+        docuInv = new Payments(...value)
     }
 
-    console.log(docuInv)
+    list.render(docuInv, type.value, 'end')
+
+    form.reset( )
 })
   
+
+const addUID = <T extends object> (obj: T)=>{
+    let UID = Math.floor(Math.random() * 100)
+    return {...obj, UID}
+}
+
+const docBlu = addUID({name: "amaboh", age: 30});
+const docRed = addUID({})
+console.log(docBlu)
+
+interface modelCard <T>{
+    name: string;
+    year: number;
+    model: T;
+}
+
+const vehicle: modelCard<object> = {
+    name: "Tesla",
+    year: 2005,
+    model: {suv:"Y", sedan: "X"}
+
+}
+
+const planet: modelCard<string[]> = {
+    name: "Benx",
+    year: 1896,
+    model: ["G wagon", "S class"]
+}
